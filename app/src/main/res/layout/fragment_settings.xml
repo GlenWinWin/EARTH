@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPrimaryContactLabel"
+        android:text="Primary Contact"
+        android:textSize="20dp"
+        android:padding="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPrimaryContact"
+        android:layout_below="@+id/tvPrimaryContactLabel"
+        android:text="No Primary Contact"
+        android:textSize="16dp"
+        android:paddingLeft="16dp"
+/>
+    <Button
+        android:layout_alignParentRight="true"
+        android:id="@+id/setPrimaryContact"
+        android:text="SET"
+        android:layout_below="@+id/tvPrimaryContactLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_below="@+id/setPrimaryContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSecondaryContactLabel"
+        android:text="Secondary Contact"
+        android:textSize="20dp"
+        android:padding="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSecondaryContact"
+        android:layout_below="@+id/tvSecondaryContactLabel"
+        android:text="No Primary Contact"
+        android:textSize="16dp"
+        android:paddingLeft="16dp"
+        />
+    <Button
+        android:layout_alignParentRight="true"
+        android:id="@+id/setSecondaryContact"
+        android:text="SET"
+        android:layout_below="@+id/tvSecondaryContactLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_below="@+id/setSecondaryContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Lockscreen"
+        android:padding="16dp"
+        android:textSize="18dp"
+        />
+    <android.support.v7.widget.SwitchCompat
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/setSecondaryContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:id="@+id/setLock" />
+</RelativeLayout>

@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">ContactPicker</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contactImage">Contact Image</string>
+    <string name="contactName">Contact Name</string>
+    <string name="action_settings">Settings</string>
+    <string name="showContacts">Show contacts</string>
+    <string name="chooseContact">Choose contacts to display</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_settings">Settings</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_settings</item>
+    </string-array>
+    <string name="title_friends">Friends</string>
+    <string name="title_home">Home</string>
+    <string name="title_activity_lock_screen">LockScreenActivity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string-array name="cities">
+        <item>Doña Remedios Trinidad, Bulacan</item>
+        <item>Norzagaray, Bulacan</item>
+        <item>San Jose del Monte City, Bulacan </item>
+        <item>Rodriguez, Rizal </item>
+        <item>San Mateo, Rizal</item>
+        <item>Quezon City, Metro Manila </item>
+        <item>Marikina City, Metro Manila </item>
+        <item>Pasig City, Metro Manila </item>
+        <item>Makati City, Metro Manila </item>
+        <item>Taguig City, Metro Manila </item>
+        <item>Muntinlupa City, Metro Manila </item>
+        <item>Gen. Mariano Alvarez, Cavite </item>
+        <item>Carmona, Cavite </item>
+        <item>Silang, Cavite </item>
+        <item>San Pedro City, Laguna </item>
+        <item>Biñan City, Laguna </item>
+        <item>Santa Rosa City, Laguna </item>
+        <item>Cabuyao City, Laguna </item>
+        <item>Calamba City, Laguna </item>
+    </string-array>
+
+    <integer-array name="populations">
+        <item>22663</item>
+        <item>111348</item>
+        <item>574089</item>
+        <item>369222</item>
+        <item>252527</item>
+        <item>2936116</item>
+        <item>450741</item>
+        <item>755300</item>
+        <item>582602</item>
+        <item>804915</item>
+        <item>504509</item>
+        <item>155143</item>
+        <item>97557</item>
+        <item>248085</item>
+        <item>325809</item>
+        <item>333028</item>
+        <item>353767</item>
+        <item>308745</item>
+        <item>454486</item>
+    </integer-array>
+</resources>
