@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
+
+
         <item
             android:id="@+id/nav_earthquakes"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_earthquake"
             android:title="Earthquakes" />
         <item
             android:id="@+id/nav_add_evac"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_evacuationareas"
             android:title="Evacuation Areas" />
         <item
             android:id="@+id/nav_vfs"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_valleyfault"
             android:title="Valley Fault System" />
         <item
             android:id="@+id/nav_response"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_response"
             android:title="How to Response?" />
+
     </group>
 
     <item android:title="Others">
         <menu>
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_about"
                 android:title="About" />
             <item
                 android:id="@+id/nav_help"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_help"
                 android:title="Help" />
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings_black_24dp"
+                android:icon="@drawable/ic_settingss"
                 android:title="Settings" />
         </menu>
     </item>
