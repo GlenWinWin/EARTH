@@ -15,16 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.testing.contactpicker.navigation_drawer_fragments.AboutFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.AddEvacuationAreasFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.EarthquakesFragment;
@@ -121,68 +115,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        double[][] valleyFaultSystemCoordinates = {
-                {15.0929081,121.0613609},
-                {14.8740942,121.1427638},
-                {14.8236989,121.0948389},
-                {14.760122,121.2003971},
-                {14.6774533,121.1591888},
-                {14.6750431,121.0402429},
-                {14.6504042,121.1019699},
-                {14.5772737,121.0857342},
-                {14.5546368,121.0241139},
-                {14.5170481,121.047546},
-                {14.4067315,121.0365698},
-                {14.3072134,121.0116093},
-                {14.2971985,121.0387576},
-                {14.2191259,120.9692234},
-                {14.3488148,121.0342489},
-                {14.3034756,121.0759443},
-                {14.283444,121.084726},
-                {14.2471016,121.1360729},
-                {14.1870326,121.1235034}};
-        String[] cities = getApplicationContext().getResources().getStringArray(R.array.cities);
-        int[] populations = getApplicationContext().getResources().getIntArray(R.array.populations);
-        for(int i=0;i<valleyFaultSystemCoordinates.length;i++){
-                LatLng places = new LatLng(valleyFaultSystemCoordinates[i][0],valleyFaultSystemCoordinates[i][1]);
-                String population = String.format("%,.2f",(double)populations[i]);
-                mMap.addMarker(new MarkerOptions().position(places).title(cities[i]).snippet("Population : " + population.replace(".00","")));
-        }
-        PolylineOptions line = new PolylineOptions()
-                .add(new LatLng(15.0929081,121.0613609),
-                        new LatLng(14.8740942,121.1427638),
-                        new LatLng(14.8236989,121.0948389),
-                        new LatLng(14.760122,121.2003971),
-                        new LatLng(14.6774533,121.1591888),
-                        new LatLng(14.6750431,121.0402429),
-                        new LatLng(14.6504042,121.1019699),
-                        new LatLng(14.5772737,121.0857342),
-                        new LatLng(14.5546368,121.0241139),
-                        new LatLng(14.5170481,121.047546),
-                        new LatLng(14.4067315,121.0365698),
-                        new LatLng(14.3072134,121.0116093),
-                        new LatLng(14.2971985,121.0387576),
-                        new LatLng(14.2191259,120.9692234),
-                        new LatLng(14.3488148,121.0342489),
-                        new LatLng(14.3034756,121.0759443),
-                        new LatLng(14.283444,121.084726),
-                        new LatLng(14.2471016,121.1360729),
-                        new LatLng(14.1870326,121.1235034))
-                .width(5)
-                .color(Color.RED).geodesic(true);
-        mMap.addPolyline(line);
-        for(int j=0;j<valleyFaultSystemCoordinates.length;j++){
-            CircleOptions circle = new CircleOptions()
-                    .center(new LatLng(valleyFaultSystemCoordinates[j][0],valleyFaultSystemCoordinates[j][1]))
-                    .radius((int)Math.sqrt(populations[j])*2)
-                    .strokeWidth(2)
-                    .strokeColor(Color.RED)
-                    .fillColor(Color.argb(100,255,0,0));
-            mMap.addCircle(circle);
-        }
-        LatLng center = new LatLng(14.5946358,121.0064731);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center,9));
+
     }
 
     @Override

@@ -1,7 +1,12 @@
 package com.testing.contactpicker.multipickercontacts;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,12 +16,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.testing.contactpicker.R;
+import com.testing.contactpicker.navigation_drawer_fragments.AboutFragment;
+import com.testing.contactpicker.navigation_drawer_fragments.AddEvacuationAreasFragment;
+import com.testing.contactpicker.navigation_drawer_fragments.EarthquakesFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.FragmentDrawer;
+import com.testing.contactpicker.navigation_drawer_fragments.HelpFragment;
+import com.testing.contactpicker.navigation_drawer_fragments.HowToResponseFragment;
+import com.testing.contactpicker.navigation_drawer_fragments.SettingsFragment;
+
 import java.util.ArrayList;
 
-public class ContactPickerActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
-
+public class ContactPickerActivity extends AppCompatActivity{
+    private GoogleMap mMap;
     public static final String PICKER_TYPE = "type";
     public static final String PICKER_TYPE_PHONE = "phone";
     public static final String CONTACT_PICKER_RESULT = "contacts";
@@ -24,6 +44,7 @@ public class ContactPickerActivity extends AppCompatActivity implements Fragment
     public static final int RESULT_ERROR = RESULT_FIRST_USER;
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    SupportMapFragment supportMapFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +62,6 @@ public class ContactPickerActivity extends AppCompatActivity implements Fragment
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle("Contacts");
-
-            drawerFragment = (FragmentDrawer)
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-            drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-            drawerFragment.setDrawerListener(this);
         } else {
             Intent ret = new Intent();
             ret.putExtra("error", "Unsupported picker type");
@@ -98,9 +114,4 @@ public class ContactPickerActivity extends AppCompatActivity implements Fragment
         cancel();
         super.onBackPressed();
     }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-    }
-
 }

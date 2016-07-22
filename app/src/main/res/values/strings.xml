@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ContactPicker</string>
+    <string name="app_name">EARTH</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contactImage">Contact Image</string>
     <string name="contactName">Contact Name</string>
