@@ -92,7 +92,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             title = "Earthquakes";
         } else if (id == R.id.nav_add_evac) {
             fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new AddEvacuationAreasFragment()).commit();
-            title = "Add Evacuation Areas";
+            title = "Evacuation Areas";
         } else if (id == R.id.nav_vfs) {
             if(!supportMapFragment.isAdded())
                 mapFragmentManager.beginTransaction().add(R.id.maps,supportMapFragment).commit();
