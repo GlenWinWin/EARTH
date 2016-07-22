@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -47,30 +47,128 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/holo_orange_light"></RelativeLayout>
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="@android:color/black" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="vertical">
 
+
+    <DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="55dp"
+        android:text="DigitalClock"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textStyle="normal|bold" />
+
             <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:layout_below="@+id/digitalClock1"
+        android:layout_centerHorizontal="true" />
+
+            <Button
+                android:text="Safe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFF"
-                android:layout_gravity="center"
-                android:text="LOCK"
-                android:textSize="80dp"/>
+                android:layout_marginTop="15dp"
+                android:textColor="#000000"
+                android:textSize="35sp"
+                android:id="@+id/safe"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#6B6B6B"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:layout_below="@+id/danger"
+                android:layout_alignRight="@+id/danger"
+                android:layout_alignEnd="@+id/danger" />
 
-        </LinearLayout>
+            <Button
+                android:text="S.O.S."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sos"
+                android:textColor="#000000"
+                android:textSize="35sp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#6B6B6B"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:layout_below="@+id/safe"
+                android:layout_alignLeft="@+id/safe"
+                android:layout_alignStart="@+id/safe"
+                android:layout_marginTop="15dp" />
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:src="@drawable/earth"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:id="@+id/imageView9"
+                android:layout_gravity="left"
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/date"
+                android:layout_alignEnd="@+id/date" />
+
+            <ImageView
+                android:layout_width="230dp"
+                android:layout_height="200dp"
+                android:src="@drawable/lockscreen2"
+                android:id="@+id/imageView3"
+                android:layout_weight="0.1"
+                android:layout_below="@+id/date"
+                android:layout_alignLeft="@+id/date"
+                android:layout_alignStart="@+id/date"
+                android:layout_marginLeft="21dp"
+                android:layout_marginStart="21dp" />
+
+            <Button
+                android:text="Danger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/danger"
+                android:layout_marginTop="129dp"
+                android:textColor="#000000"
+                android:textSize="35sp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#6B6B6B"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="3"
+                android:layout_marginRight="13dp"
+                android:layout_marginEnd="13dp"
+                android:layout_weight="0.9"
+                android:layout_alignTop="@+id/imageView9"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+            />
+
+        </RelativeLayout>
 
     </com.testing.contactpicker.lockscreen.LockScreenView>
-
 </RelativeLayout>
 
