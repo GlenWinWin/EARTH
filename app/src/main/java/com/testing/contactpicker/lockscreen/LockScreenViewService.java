@@ -36,10 +36,12 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.testing.contactpicker.R;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -250,6 +252,17 @@ public class LockScreenViewService extends Service {
             mStatusBackgroundDummyView.setLayoutParams(backgroundParam);
         }
 
+
+
+        TextView Date = (TextView) mLockScreenView.findViewById(R.id.date);
+        final Calendar cal = Calendar.getInstance();
+        int dd = cal.get(Calendar.DAY_OF_MONTH);
+        int mm = cal.get(Calendar.MONTH);
+        int yy = cal.get(Calendar.YEAR);
+        String month_name= theMonth(mm);
+        Date.setText(new StringBuilder()
+                .append(month_name).append(" ").append(dd).append(", ").append(yy));
+
 //        final String primaryContactNumber = SharedPreferencesUtil.getPrimaryContactNumber(getApplicationContext());
   //      Log.d(TAG, "primary: " + primaryContactNumber);
 
@@ -285,7 +298,10 @@ public class LockScreenViewService extends Service {
 //            }
 //        });
     }
-
+    public static String theMonth(int month){
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month];
+    }
     private void sendSMS(String primaryContactNumber) {
         Log.d(TAG, "send sms: " + primaryContactNumber);
 
