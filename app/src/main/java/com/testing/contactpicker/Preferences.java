@@ -14,6 +14,16 @@ public class Preferences {
     private static SharedPreferences prefs;
     private static final String storage = "configs";
 
+    public static void setFragmentMap(Context context, String value){
+        prefs = context.getSharedPreferences(storage, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("fragment", value);
+        editor.apply();
+    }
+    public static String getFragmentMap(Context context){
+        prefs = context.getSharedPreferences(storage, Context.MODE_PRIVATE);
+        return prefs.getString("fragment", "");
+    }
     public static void setPrimaryContactNumber(Context context, String value){
         prefs = context.getSharedPreferences(storage, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
