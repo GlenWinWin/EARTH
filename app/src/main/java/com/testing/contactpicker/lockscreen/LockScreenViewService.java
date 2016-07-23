@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.testing.contactpicker.R;
+import com.testing.contactpicker.SOSActivity;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -262,6 +263,17 @@ public class LockScreenViewService extends Service {
         String month_name= theMonth(mm);
         Date.setText(new StringBuilder()
                 .append(month_name).append(" ").append(dd).append(", ").append(yy));
+        Button sos = (Button)mLockScreenView.findViewById(R.id.sos);
+        sos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBackgroundLayout.setVisibility(View.INVISIBLE);
+                mForegroundLayout.setVisibility(View.INVISIBLE);
+                Intent sosIntent = new Intent(mContext,SOSActivity.class);
+                sosIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(sosIntent);
+            }
+        });
 
 //        final String primaryContactNumber = SharedPreferencesUtil.getPrimaryContactNumber(getApplicationContext());
   //      Log.d(TAG, "primary: " + primaryContactNumber);
