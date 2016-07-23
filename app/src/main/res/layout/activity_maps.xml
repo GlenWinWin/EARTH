@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical">
+<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Search..."
+            android:ems="10"
+            android:id="@+id/TFaddress" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:text="SEARCH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Bsearch"
+            android:layout_gravity="right"
+            android:onClick="onSearch" />
+
+    </LinearLayout>
+
+    <fragment
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/latlongLocation"
+    tools:context="com.example.charlotte.sampleagainformaps.MapsActivity"/>
+
+
+</LinearLayout>

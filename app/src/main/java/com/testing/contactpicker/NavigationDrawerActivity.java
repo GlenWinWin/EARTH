@@ -1,8 +1,8 @@
 package com.testing.contactpicker;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -22,21 +22,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.testing.contactpicker.navigation_drawer_fragments.AboutFragment;
-import com.testing.contactpicker.navigation_drawer_fragments.AddEvacuationAreasFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.EarthquakesFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.HelpFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.HowToResponseFragment;
 import com.testing.contactpicker.navigation_drawer_fragments.SettingsFragment;
 
+import com.testing.contactpicker.sampleagainformaps.MapsActivity;
+
 public class NavigationDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback{
     SupportMapFragment supportMapFragment;
     private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +90,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new EarthquakesFragment()).commit();
             title = "Earthquakes";
         } else if (id == R.id.nav_add_evac) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new AddEvacuationAreasFragment()).commit();
-            title = "Evacuation Areas";
+            startActivity(new Intent(NavigationDrawerActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_vfs) {
             if(!supportMapFragment.isAdded())
                 mapFragmentManager.beginTransaction().add(R.id.maps,supportMapFragment).commit();
@@ -145,9 +143,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         String[] cities = getApplicationContext().getResources().getStringArray(R.array.cities);
         int[] populations = getApplicationContext().getResources().getIntArray(R.array.populations);
         for(int i=0;i<valleyFaultSystemCoordinates.length;i++){
-                LatLng places = new LatLng(valleyFaultSystemCoordinates[i][0],valleyFaultSystemCoordinates[i][1]);
-                String population = String.format("%,.2f",(double)populations[i]);
-                mMap.addMarker(new MarkerOptions().position(places).title(cities[i]).snippet("Population : " + population.replace(".00","")));
+            LatLng places = new LatLng(valleyFaultSystemCoordinates[i][0],valleyFaultSystemCoordinates[i][1]);
+            String population = String.format("%,.2f",(double)populations[i]);
+            mMap.addMarker(new MarkerOptions().position(places).title(cities[i]).snippet("Population : " + population.replace(".00","")));
         }
         PolylineOptions line = new PolylineOptions()
                 .add(new LatLng(15.0929081,121.0613609),
@@ -183,12 +181,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
         LatLng center = new LatLng(14.5946358,121.0064731);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center,9));
-    }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-
-        return false;
     }
 
 }
