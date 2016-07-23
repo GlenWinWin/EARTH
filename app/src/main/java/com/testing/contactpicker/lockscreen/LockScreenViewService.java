@@ -37,7 +37,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.testing.contactpicker.Modules.GPSTracker;
+import com.testing.contactpicker.Preferences;
 import com.testing.contactpicker.R;
 import com.testing.contactpicker.SOSActivity;
 
@@ -46,7 +49,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class LockScreenViewService extends Service {
+public class LockScreenViewService extends Service  implements LocationListener{
     private final int LOCK_OPEN_OFFSET_VALUE = 50;
     private Context mContext = null;
     private LayoutInflater mInflater = null;
@@ -67,15 +70,36 @@ public class LockScreenViewService extends Service {
     private int mServiceStartId = 0;
     private SendMessageHandler mMainHandler = null;
 //    private boolean sIsSoftKeyEnable = false;
+    GPSTracker gps;
+    StringBuilder strAddress = new StringBuilder();
+    List<Address> addresses;
+    private class SendMessageHandler extends android.os.Handler{
 
-    private class SendMessageHandler extends android.os.Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             changeBackGroundLockView(mLastLayoutX);
         }
     }
+    @Override
+    public void onLocationChanged(Location location) {
 
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -274,139 +298,80 @@ public class LockScreenViewService extends Service {
                 startActivity(sosIntent);
             }
         });
+        Button safe = (Button)mLockScreenView.findViewById(R.id.safe);
+        Button danger = (Button)mLockScreenView.findViewById(R.id.danger);
 
-//        final String primaryContactNumber = SharedPreferencesUtil.getPrimaryContactNumber(getApplicationContext());
-  //      Log.d(TAG, "primary: " + primaryContactNumber);
+        safe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SmsManager smsManager = SmsManager.getDefault();
+                gps = new GPSTracker(mContext);
 
-//        Button sms = (Button) mLockScreenView.findViewById(R.id.btnSMS);
-//        sms.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendSMS(primaryContactNumber);
-//            }
-//        });
-//
-//        Button call = (Button) mLockScreenView.findViewById(R.id.btnCall);
-//        call.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                makeACall(primaryContactNumber);
-//            }
-//        });
-//
-//        final MediaPlayer mp = MediaPlayer.create(this, R.raw.buzz);
-//        mp.setLooping(true);
-//        Button siren = (Button) mLockScreenView.findViewById(R.id.btnSiren);
-//        siren.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!mp.isPlaying()) {
-//                    mp.start();
-//                } else {
-//                    mp.pause();
-//                }
-//                Log.d(TAG, "isPlaying: " + mp.isPlaying());
-//            }
-//        });
+                final double latitude = gps.getLatitude();
+                final double longitude = gps.getLongitude();
+
+                Geocoder geocoder= new Geocoder(mContext, Locale.ENGLISH);
+                try {  //Place your latitude and longitude
+                    addresses = geocoder.getFromLocation(latitude,longitude, 1);
+
+                    if(addresses != null) {
+                        Address fetchedAddress = addresses.get(0);
+
+                        for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                            strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                        }
+                    }  else Toast.makeText(mContext,"gggg", Toast.LENGTH_SHORT).show();
+                }
+                catch (IOException e) { //
+                    e.printStackTrace();
+                }
+                if(!Preferences.getPrimaryContactNumber(mContext).isEmpty()){
+                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
+                }
+                if(!Preferences.getSecondaryContactNumber(mContext).isEmpty()){
+                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
+                }
+                Toast.makeText(mContext,"Successfully Sent",Toast.LENGTH_SHORT).show();
+            }
+        });
+        danger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SmsManager smsManager = SmsManager.getDefault();
+                gps = new GPSTracker(mContext);
+
+                final double latitude = gps.getLatitude();
+                final double longitude = gps.getLongitude();
+
+                Geocoder geocoder= new Geocoder(mContext, Locale.ENGLISH);
+                try {  //Place your latitude and longitude
+                    addresses = geocoder.getFromLocation(latitude,longitude, 1);
+
+                    if(addresses != null) {
+                        Address fetchedAddress = addresses.get(0);
+
+                        for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                            strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                        }
+                    }  else Toast.makeText(mContext,"gggg", Toast.LENGTH_SHORT).show();
+
+                }
+                catch (IOException e) { //
+                    e.printStackTrace();
+                }
+                if(!Preferences.getPrimaryContactNumber(mContext).isEmpty()){
+                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am safe. Do not worry about me. I am at " + strAddress.toString(), null, null);
+                }
+                if(!Preferences.getSecondaryContactNumber(mContext).isEmpty()){
+                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am safe. Do not worry about me. I am at " + strAddress.toString(), null, null);
+                }
+                Toast.makeText(mContext,"Successfully Sent",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     public static String theMonth(int month){
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
-    }
-    private void sendSMS(String primaryContactNumber) {
-        Log.d(TAG, "send sms: " + primaryContactNumber);
-
-        String SENT = "SMS_SENT";
-        String DELIVERED = "SMS_DELIVERED";
-        String message = "Help, I need you";
-
-        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
-
-        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
-
-        //---when the SMS has been sent---
-        registerReceiver(new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context arg0, Intent arg1) {
-                switch (getResultCode())
-                {
-                    case Activity.RESULT_OK:
-                        Log.d(TAG, "SMS sent");
-                        break;
-                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        Log.d(TAG, "Generic failure");
-                        break;
-                    case SmsManager.RESULT_ERROR_NO_SERVICE:
-                        Log.d(TAG, "No service");
-                        break;
-                    case SmsManager.RESULT_ERROR_NULL_PDU:
-                        Log.d(TAG, "Null PDU");
-                        break;
-                    case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        Log.d(TAG, "Radio off");
-                        break;
-                }
-            }
-        }, new IntentFilter(SENT));
-
-        //---when the SMS has been delivered---
-        registerReceiver(new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context arg0, Intent arg1) {
-                switch (getResultCode()) {
-                    case Activity.RESULT_OK:
-                        Log.d(TAG, "SMS delivered");
-                        break;
-                    case Activity.RESULT_CANCELED:
-                        Log.d(TAG, "SMS not delivered");
-                        break;
-                }
-            }
-        }, new IntentFilter(DELIVERED));
-
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(primaryContactNumber, null, message, sentPI, deliveredPI);
-    }
-
-    private void makeACall(String primaryContactNumber) {
-        Log.d(TAG, "makeACall: " + primaryContactNumber);
-//        PermissionEverywhere.getPermission(getApplicationContext(), new String[]{Manifest.permission.CALL_PHONE},
-//                1234, "My Awesome App", "This app needs a permission", R.drawable.lock).enqueue(new PermissionResultCallback() {
-//            @Override
-//            public void onComplete(PermissionResponse permissionResponse) {
-//                Toast.makeText(LockScreenViewService.this, "is Granted " + permissionResponse.isGranted(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        EndCallListener callListener = new EndCallListener();
-        TelephonyManager mTM = (TelephonyManager) this.getSystemService(getApplicationContext().TELEPHONY_SERVICE);
-        mTM.listen(callListener, PhoneStateListener.LISTEN_CALL_STATE);
-
-        final Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + primaryContactNumber));
-        callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //callIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-//            PermissionEverywhere.getPermission(getApplicationContext(), new String[]{Manifest.permission.CALL_PHONE},
-//                    123, "My Awesome App", "This app needs a permission", R.drawable.lock).enqueue(new PermissionResultCallback() {
-//                @Override
-//                public void onComplete(PermissionResponse permissionResponse) {
-//                    Toast.makeText(LockScreenViewService.this, "is Granted " + permissionResponse.isGranted(), Toast.LENGTH_SHORT).show();
-//                    startActivity(callIntent);
-//                }
-//            });
-            return;
-        }
-        startActivity(callIntent);
     }
 
     private static final String TAG = "LockScreenViewService";
@@ -549,44 +514,31 @@ public class LockScreenViewService extends Service {
     }
 
     /*---------- Listener class to get coordinates ------------- */
-    private class MyLocationListener implements LocationListener {
-        @Override
-        public void onLocationChanged(Location loc) {
-            String longitude = "Longitude: " + loc.getLongitude();
-            Log.v(TAG, "long: " + longitude);
-            String latitude = "Latitude: " + loc.getLatitude();
-            Log.v(TAG, "lat: " + latitude);
-
-
-        /*------- To get city name from coordinates -------- */
-            String cityName = null;
-            Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-            List<Address> addresses;
-            try {
-                addresses = gcd.getFromLocation(loc.getLatitude(),
-                        loc.getLongitude(), 1);
-                if (addresses.size() > 0) {
-                    System.out.println(addresses.get(0).getLocality());
-                    cityName = addresses.get(0).getLocality();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
-                    + cityName;
-            Log.d(TAG, "location cityName: " + s);
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-    }
+//    private class MyLocationListener implements LocationListener {
+//        @Override
+//        public void onLocationChanged(Location loc) {
+//            String longitude = "Longitude: " + loc.getLongitude();
+//            Log.v(TAG, "long: " + longitude);
+//            String latitude = "Latitude: " + loc.getLatitude();
+//            Log.v(TAG, "lat: " + latitude);
+//
+//
+//        /*------- To get city name from coordinates -------- */
+//            String cityName = null;
+//            Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+//            List<Address> addresses;
+//            try {
+//                addresses = gcd.getFromLocation(loc.getLatitude(),
+//                        loc.getLongitude(), 1);
+//                if (addresses.size() > 0) {
+//                    System.out.println(addresses.get(0).getLocality());
+//                    cityName = addresses.get(0).getLocality();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
+//                    + cityName;
+//            Log.d(TAG, "location cityName: " + s);
+//        }
 }

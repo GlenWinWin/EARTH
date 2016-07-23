@@ -61,8 +61,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new EarthquakesFragment()).commit();
-        getSupportActionBar().setTitle("Earthquakes");
+        if(Preferences.getPrimaryContactNumber(getApplicationContext()).isEmpty() && Preferences.getSecondaryContactNumber(getApplicationContext()).isEmpty()){
+            fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new SettingsFragment()).commit();
+            getSupportActionBar().setTitle("Settings");
+        }
+        else{
+            fragmentManager.beginTransaction().replace(R.id.content_frame_for_fragments,new EarthquakesFragment()).commit();
+            getSupportActionBar().setTitle("Earthquakes");
+        }
 
         supportMapFragment.getMapAsync(this);
     }

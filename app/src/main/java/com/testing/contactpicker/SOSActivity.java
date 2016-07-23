@@ -41,13 +41,6 @@ public class SOSActivity extends AppCompatActivity {
         pito.setRepeatMode(Animation.REVERSE);
         pito.setRepeatCount(Animation.INFINITE);
         blue.startAnimation(pito);
-        Button btn = (Button)findViewById(R.id.btnStop);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mp.stop();
-                finish();
-            }
-        });
+
     }
 }
