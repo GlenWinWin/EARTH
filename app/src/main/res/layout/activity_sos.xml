@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context="com.testing.contactpicker.SOSActivity">
+    <LinearLayout
+        android:id="@+id/redLayout"
+        android:layout_width="match_parent"
+        android:layout_height="235dp"
+        android:layout_alignTop="@+id/secondView"
+        android:orientation="horizontal"
+        android:background="#ff0000"></LinearLayout>
+
+    <View
+        android:id="@+id/secondView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true" />
+
+    <LinearLayout
+        android:id="@+id/blueLayout"
+        android:layout_width="match_parent"
+        android:layout_height="235dp"
+        android:layout_alignBottom="@+id/secondView"
+        android:orientation="horizontal"
+        android:background="#0000ff"></LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnStop"
+        android:text="STOP"
+        android:clickable="true"
+        android:layout_marginTop="470dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/buttonshape"/>
+
+</RelativeLayout>
