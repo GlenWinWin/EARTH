@@ -102,7 +102,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
 
                                     returnDestination.getDestination(dcity1and2);
 
-                                  Toast.makeText(MapsActivity.this, returnDestination.setDestination() + "   " + returnDestination.setOrigin(), Toast.LENGTH_LONG).show();
 
                                     Intent intent = new Intent(MapsActivity.this, MapsPath.class);
                                     intent.putExtra("destination", dcity1and2);
@@ -169,7 +168,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
                 returnOrigin.getOrigin(origin);
 
                 mylocation = returnOrigin.setOrigin();
-                Toast.makeText(this, "Your Current location: "+ returnOrigin.setOrigin(), Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
             e.printStackTrace();

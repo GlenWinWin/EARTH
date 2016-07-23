@@ -8,16 +8,36 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="45dp"
-        android:text="About"
-        android:textStyle="bold"/>
+        android:text="E.A.R.T.H."
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_below="@id/label"
         android:layout_centerInParent="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
-        android:layout_marginTop="10dp"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="Edit fragment_about.xml to change the appearance" />
+        android:textStyle="bold"
+        android:text="(Earthquake Application Response to Hazard)"
+        android:textColor="#000000"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_below="@id/label"
+        android:layout_centerInParent="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginTop="130dp"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:text="The earthquake can't kill but its effect do.Falling debris, Fire, Tsunamis.
+        How are you going to prepare?
+        What's your next move? Where should you go? E.A.R.T.H. prepares you and will help you survive before, during and after the earthquake and after shocks.
+        "
+        android:textAlignment="center" />
 </RelativeLayout>

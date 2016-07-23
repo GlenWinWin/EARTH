@@ -47,8 +47,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         View myView = inflater.inflate(R.layout.earth_popup,(ViewGroup)findViewById(R.id.popup_earth));
         Toast toast = new Toast(this);
         toast.setView(myView);
-        toast.setDuration(Toast.LENGTH_LONG);
-        for(int i=0;i<30;i++){
+        toast.setDuration(Toast.LENGTH_SHORT);
+        for(int i=0;i<20;i++){
             toast.show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

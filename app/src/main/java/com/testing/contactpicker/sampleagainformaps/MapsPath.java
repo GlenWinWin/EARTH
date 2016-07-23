@@ -66,8 +66,6 @@ public class MapsPath extends FragmentActivity implements OnMapReadyCallback, Di
         etOrigin.setText(getorigin);
         etDestination.setText(getdestination);
 
-    Toast.makeText(MapsPath.this, "Your data: "+ getorigin + " "+ getdestination, Toast.LENGTH_LONG).show();
-
 
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,10 +99,10 @@ public class MapsPath extends FragmentActivity implements OnMapReadyCallback, Di
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng hcmus = new LatLng(10.762963, 106.682394);
+        LatLng hcmus = new LatLng(0, 0);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 18));
         originMarkers.add(mMap.addMarker(new MarkerOptions()
-                .title("Đại học Khoa học tự nhiên")
+                .title("")
                 .position(hcmus)));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
