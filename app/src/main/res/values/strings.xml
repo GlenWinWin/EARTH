@@ -23,7 +23,7 @@
     <string name="title_home">Home</string>
     <string name="title_activity_lock_screen">LockScreenActivity</string>
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
-
+x
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_settings">SettingsActivity</string>

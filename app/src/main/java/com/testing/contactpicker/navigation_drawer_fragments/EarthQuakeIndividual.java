@@ -50,9 +50,15 @@ public class EarthQuakeIndividual extends AppCompatActivity implements OnMapRead
         place = intent.getStringExtra("place");
         magnitude = intent.getStringExtra("magnitude");
         String time = intent.getStringExtra("time");
+        String date = intent.getStringExtra("date");
         latitude = intent.getDoubleExtra("lat",0);
         longitude = intent.getDoubleExtra("long",0);
-        ((TextView)findViewById(R.id.contentDetails)).setText("Place : " + place + "\n" + "Magnitude : " + magnitude + "\n" + "Time : " + time + "\nCoordinates : " + latitude+","+longitude);
+        ((TextView)findViewById(R.id.location)).setText("Place : " + place );
+        ((TextView)findViewById(R.id.magnitude)).setText("Magnitude : " + magnitude  );
+        ((TextView)findViewById(R.id.timee)).setText("Time : " + time  );
+        ((TextView)findViewById(R.id.date)).setText("Date : " + date  );
+        ((TextView)findViewById(R.id.coordinates)).setText("Coordinates : \n" + latitude+", "+longitude);
+
         supportMapFragment.getMapAsync(this);
         FragmentManager mapFragmentManager = getSupportFragmentManager();
         if(!supportMapFragment.isAdded())

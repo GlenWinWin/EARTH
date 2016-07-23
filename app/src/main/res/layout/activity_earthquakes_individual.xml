@@ -4,7 +4,7 @@
     android:id="@+id/lockscreen_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#10FF0000">
+    android:background="#fff">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,11 +22,102 @@
         android:layout_marginTop="53dp"
         android:id="@+id/maps"
         android:layout_width="500dp"
-        android:layout_height="300dp"></FrameLayout>
+        android:layout_height="380dp"></FrameLayout>
+
     <TextView
-        android:layout_marginTop="360dp"
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Individual"
-        android:id="@+id/contentDetails"/>
+        android:layout_alignBottom="@+id/magnitude"
+        android:layout_alignLeft="@+id/timee"
+        android:layout_alignStart="@+id/timee"
+        android:id="@+id/coordinates" />
+
+    <ImageView
+        android:src="@drawable/ic_error_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/location"
+        android:layout_alignRight="@+id/imageView14"
+        android:layout_alignEnd="@+id/imageView14"
+        android:id="@+id/imageView16" />
+
+    <ImageView
+        android:src="@drawable/ic_date_range_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView14"
+        android:layout_above="@+id/magnitude"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
+
+    <ImageView
+        android:src="@drawable/location_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/imageView18"
+        android:layout_alignBottom="@+id/location"
+        android:layout_alignLeft="@+id/imageView16"
+        android:layout_alignStart="@+id/imageView16" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timee"
+        android:layout_alignBaseline="@+id/date"
+        android:layout_alignBottom="@+id/date"
+        android:layout_toRightOf="@+id/imageView15"
+        android:layout_toEndOf="@+id/imageView15" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:id="@+id/location"
+        android:layout_below="@+id/magnitude"
+        android:layout_toRightOf="@+id/imageView18"
+        android:layout_toEndOf="@+id/imageView18" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:id="@+id/magnitude"
+        android:layout_below="@+id/date"
+        android:layout_toRightOf="@+id/imageView18"
+        android:layout_toEndOf="@+id/imageView18" />
+
+    <ImageView
+        android:src="@drawable/ic_access_time_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView15"
+        android:layout_alignBottom="@+id/timee"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:src="@drawable/ic_my_location_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView17"
+        android:layout_alignBottom="@+id/coordinates"
+        android:layout_toLeftOf="@+id/coordinates"
+        android:layout_toStartOf="@+id/coordinates" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/date"
+        android:layout_below="@+id/maps"
+        android:layout_alignLeft="@+id/magnitude"
+        android:layout_alignStart="@+id/magnitude" />
+
+
 </RelativeLayout>

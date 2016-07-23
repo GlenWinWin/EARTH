@@ -26,7 +26,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class EarthquakesFragment extends Fragment {
@@ -65,10 +67,17 @@ public class EarthquakesFragment extends Fragment {
                 double longiEarthQuake = Double.parseDouble((((TextView) view.findViewById(R.id.longitude)).getText().toString()));
                 double latiEarthQuake = Double.parseDouble((((TextView) view.findViewById(R.id.latitude)).getText().toString()));
                 String timeEarthQuake = ((TextView) view.findViewById(R.id.timeko)).getText().toString();
+                Date finalTime = new Date(Long.parseLong(timeEarthQuake));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+
+                String date = dateFormat.format(finalTime);
+                String time = timeFormat.format(finalTime);
                 Intent intent = new Intent(getActivity(),EarthQuakeIndividual.class);
                 intent.putExtra("place",placeEarthQuake);
                 intent.putExtra("magnitude",magnitudeEarthQuake);
-                intent.putExtra("time",timeEarthQuake);
+                intent.putExtra("date",date);
+                intent.putExtra("time",time);
                 intent.putExtra("lat",latiEarthQuake);
                 intent.putExtra("long",longiEarthQuake);
                 startActivity(intent);
