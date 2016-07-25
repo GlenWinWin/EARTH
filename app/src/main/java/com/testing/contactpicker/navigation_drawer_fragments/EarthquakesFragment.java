@@ -34,7 +34,7 @@ import java.util.HashMap;
 public class EarthquakesFragment extends Fragment {
     ProgressDialog progressDialog;
     ArrayList<HashMap<String, String>> earthQuakes;
-    public static final String everyday_url = "http://10.239.33.36:8080/earth/fetch_everyday_earthquake.php";
+    public static final String everyday_url = "http://mywebtrafficsource.com/fetch_everyday_earthquake.php";
     ListView list;
     String result = "";
     private static final String TAG_EARTHQUAKE = "earthquake";

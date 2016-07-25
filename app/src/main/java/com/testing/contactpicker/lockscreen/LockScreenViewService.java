@@ -44,12 +44,23 @@ import com.testing.contactpicker.Preferences;
 import com.testing.contactpicker.R;
 import com.testing.contactpicker.SOSActivity;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 public class LockScreenViewService extends Service  implements LocationListener{
+    private String post_url = "http://mywebtrafficsource.com/ireport.php";
+
     private final int LOCK_OPEN_OFFSET_VALUE = 50;
     private Context mContext = null;
     private LayoutInflater mInflater = null;
@@ -279,7 +290,7 @@ public class LockScreenViewService extends Service  implements LocationListener{
 
 
 
-        TextView Date = (TextView) mLockScreenView.findViewById(R.id.date);
+        final TextView Date = (TextView) mLockScreenView.findViewById(R.id.date);
         final Calendar cal = Calendar.getInstance();
         int dd = cal.get(Calendar.DAY_OF_MONTH);
         int mm = cal.get(Calendar.MONTH);
@@ -326,12 +337,31 @@ public class LockScreenViewService extends Service  implements LocationListener{
                     e.printStackTrace();
                 }
                 if(!Preferences.getPrimaryContactNumber(mContext).isEmpty()){
-                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
+                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am safe. Do not worry at " + strAddress.toString(), null, null);
                 }
                 if(!Preferences.getSecondaryContactNumber(mContext).isEmpty()){
-                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
+                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am safe. Do not worry at " + strAddress.toString(), null, null);
                 }
                 Toast.makeText(mContext,"Successfully Sent",Toast.LENGTH_SHORT).show();
+                InputStream isr = null;
+                try {
+                    final Calendar cal = Calendar.getInstance();
+                    int dd = cal.get(Calendar.DAY_OF_MONTH);
+                    int mm = cal.get(Calendar.MONTH);
+                    int yy = cal.get(Calendar.YEAR);
+                    String cur_date = (new StringBuilder()
+                            .append(yy).append("-").append(mm).append("-").append(yy)).toString();
+                    DateFormat dateF = new SimpleDateFormat("HH:mm:ss");
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(post_url+"?status=Safe&current_date="+cur_date+"&time_cur="+(Calendar.getInstance().getTime().toString().split(" ")[1])+"&lati="+latitude+"&longi="+longitude);
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    isr = entity.getContent();
+                    Log.d("success", "Cool");
+                } catch (Exception ed) {
+                    Log.e("log_tag", "Error in http connection " + ed.toString());
+                    Log.d("error", "Error");
+                }
             }
         });
         danger.setOnClickListener(new View.OnClickListener() {
@@ -360,12 +390,31 @@ public class LockScreenViewService extends Service  implements LocationListener{
                     e.printStackTrace();
                 }
                 if(!Preferences.getPrimaryContactNumber(mContext).isEmpty()){
-                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am safe. Do not worry about me. I am at " + strAddress.toString(), null, null);
+                    smsManager.sendTextMessage(Preferences.getPrimaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
                 }
                 if(!Preferences.getSecondaryContactNumber(mContext).isEmpty()){
-                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am safe. Do not worry about me. I am at " + strAddress.toString(), null, null);
+                    smsManager.sendTextMessage(Preferences.getSecondaryContactNumber(mContext), null, "I am in danger at " + strAddress.toString(), null, null);
                 }
                 Toast.makeText(mContext,"Successfully Sent",Toast.LENGTH_SHORT).show();
+                InputStream isr = null;
+                try {
+                    final Calendar cal = Calendar.getInstance();
+                    int dd = cal.get(Calendar.DAY_OF_MONTH);
+                    int mm = cal.get(Calendar.MONTH);
+                    int yy = cal.get(Calendar.YEAR);
+                    String cur_date = (new StringBuilder()
+                            .append(yy).append("-").append(mm).append("-").append(yy)).toString();
+                    DateFormat dateF = new SimpleDateFormat("HH:mm:ss");
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(post_url+"?status=Danger&current_date="+cur_date+"&time_cur="+(Calendar.getInstance().getTime().toString().split(" ")[1])+"&lati="+latitude+"&longi="+longitude);
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    isr = entity.getContent();
+                    Log.d("success", "Cool");
+                } catch (Exception ed) {
+                    Log.e("log_tag", "Error in http connection " + ed.toString());
+                    Log.d("error", "Error");
+                }
             }
         });
     }
