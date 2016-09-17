@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -33,13 +36,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.testing.contactpicker.NavigationDrawerActivity;
 import com.testing.contactpicker.R;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements LocationListener {
+public class MapsActivity extends AppCompatActivity implements LocationListener {
 
     GoogleMap map;
     String mylocation = "";
@@ -56,6 +60,9 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
             finish();
         }
         setContentView(R.layout.activity_maps);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Evacuation Areas");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -81,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
             map.addMarker(new MarkerOptions()
                     .position (new LatLng(array_latitude[counter],array_longitude[counter]))
                     .title(array_places[counter])
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_evacuation)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.house)));
             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -257,5 +264,21 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_back_earthquake_individual, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.backButton) {
+            finish();
+            startActivity(new Intent(this, NavigationDrawerActivity.class));
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

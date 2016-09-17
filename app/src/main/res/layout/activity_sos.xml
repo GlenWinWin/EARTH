@@ -8,10 +8,10 @@
     <LinearLayout
         android:id="@+id/redLayout"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="match_parent"
         android:layout_alignTop="@+id/secondView"
         android:orientation="horizontal"
-        android:background="#ff0000"></LinearLayout>
+        android:background="#fff"></LinearLayout>
 
     <View
         android:id="@+id/secondView"
@@ -22,9 +22,9 @@
     <LinearLayout
         android:id="@+id/blueLayout"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="match_parent"
         android:layout_alignBottom="@+id/secondView"
         android:orientation="horizontal"
-        android:background="#0000ff"></LinearLayout>
+        android:background="#fff"></LinearLayout>
 
 </RelativeLayout>

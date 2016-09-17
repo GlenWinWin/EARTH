@@ -1,7 +1,9 @@
 package com.testing.contactpicker;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,14 +46,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        LayoutInflater inflater = getLayoutInflater();
-        View myView = inflater.inflate(R.layout.earth_popup,(ViewGroup)findViewById(R.id.popup_earth));
-        Toast toast = new Toast(this);
-        toast.setView(myView);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        for(int i=0;i<20;i++){
-            toast.show();
-        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -148,10 +144,19 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 {14.1870326,121.1235034}};
         String[] cities = getApplicationContext().getResources().getStringArray(R.array.cities);
         int[] populations = getApplicationContext().getResources().getIntArray(R.array.populations);
+        int height = 20;
+        int width = 20;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.earthquake);
+        Bitmap b=bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         for(int i=0;i<valleyFaultSystemCoordinates.length;i++){
             LatLng places = new LatLng(valleyFaultSystemCoordinates[i][0],valleyFaultSystemCoordinates[i][1]);
             String population = String.format("%,.2f",(double)populations[i]);
-            mMap.addMarker(new MarkerOptions().position(places).title(cities[i]).snippet("Population : " + population.replace(".00","")));
+            mMap.addMarker(new MarkerOptions().
+                    position(places).
+                    title(cities[i]).
+                    snippet("Population : " + population.replace(".00","")).
+                    icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
         }
         PolylineOptions line = new PolylineOptions()
                 .add(new LatLng(15.0929081,121.0613609),

@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.testing.contactpicker.NavigationDrawerActivity;
 import com.testing.contactpicker.R;
 
 
@@ -84,6 +85,7 @@ public class EarthQuakeIndividual extends AppCompatActivity implements OnMapRead
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.backButton) {
             finish();
+            startActivity(new Intent(this, NavigationDrawerActivity.class));
             return true;
         }else {
             return super.onOptionsItemSelected(item);
